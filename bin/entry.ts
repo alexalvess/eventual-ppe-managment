@@ -1,4 +1,4 @@
-import app from '../src/adapters/webapi/app';
+import app from '../src/webs/webapi/app';
 
 const port = process.env.PORT || 3000;
 
