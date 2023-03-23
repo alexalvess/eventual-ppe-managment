@@ -15,7 +15,6 @@ export default abstract class AggregateRoot extends Entity {
 
     public uncommittedEvents: ReadonlyArray<IDomainEvent> = this.events;
 
-    public abstract handle(command: ICommand): void;
     protected abstract apply(event: IDomainEvent): void;
 
     public loadFromHistory(events: Array<IDomainEvent>): void {
