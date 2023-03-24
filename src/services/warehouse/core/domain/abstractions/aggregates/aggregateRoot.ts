@@ -1,4 +1,3 @@
-import ICommand from "../../../../../../contracts/abstractions/icommand";
 import { IDomainEvent } from "../../../../../../contracts/abstractions/ievent";
 import Entity from "../entities/entity";
 
