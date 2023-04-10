@@ -1,3 +1,4 @@
+import { CreateInventory } from "../../../../../contracts/services/warehouse/command";
 import Entity from "../abstractions/entities/entity";
 import Product from "../valueObjects/product";
 

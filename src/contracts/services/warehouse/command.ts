@@ -3,14 +3,16 @@ import Message from "../../abstractions/message";
 import ProductDto from "../../dataTransferObjects/productDto";
 
 export class CreateInventory extends Message implements ICommand {
-    constructor(product: ProductDto, cost: number) {
+    constructor(product: ProductDto, amount: number, cost: number) {
         super();
         
         this.product = product;
+        this.amount = amount;
         this.cost = cost;
     }
 
     readonly product: ProductDto;
+    readonly amount: number;
     readonly cost: number;
 }
 
