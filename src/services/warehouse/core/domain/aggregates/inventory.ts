@@ -31,11 +31,16 @@ export default class Inventory extends AggregateRoot {
 
     protected apply(event: IDomainEvent): void {
         if(event instanceof InventoryCreated) this.whenInventoryCreated(event);
+        else if(event instanceof InventoryIncreased) this.whenInventoryIncreased(event);
     }
 
     private whenInventoryCreated(event: InventoryCreated): void {
         let product: Product = Product.ConvertToProduct(event.product);
         let item: Item = new Item(uuid.v4.toString(), product, event.amount, event.cost);
         this._items.push(item);
+    }
+
+    private whenInventoryIncreased(event: InventoryIncreased): void {
+        this._items.find(item => item.id === event.inventoryItemId)?.Increase(event.amount);
     }
 }
