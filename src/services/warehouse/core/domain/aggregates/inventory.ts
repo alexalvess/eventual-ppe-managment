@@ -1,6 +1,6 @@
 import { IDomainEvent } from "../../../../../contracts/abstractions/ievent"
-import { CreateInventory, IncreaseInventory } from "../../../../../contracts/services/warehouse/command";
-import { InventoryCreated, InventoryIncreased } from "../../../../../contracts/services/warehouse/domainEvent";
+import { CreateInventory, DecreaseInventory, IncreaseInventory } from "../../../../../contracts/services/warehouse/command";
+import { InventoryCreated, InventoryDecreased, InventoryIncreased } from "../../../../../contracts/services/warehouse/domainEvent";
 import AggregateRoot from "../abstractions/aggregates/aggregateRoot"
 import Item from "../entities/item";
 import uuid from "uuid";
@@ -27,6 +27,10 @@ export default class Inventory extends AggregateRoot {
 
     public increaseInventory(command: IncreaseInventory): void {
         this.raiseEvent(version => new InventoryIncreased(command.inventoryId, command.inventoryItemId, command.amount, version));
+    }
+
+    public decreaseInventory(command: DecreaseInventory): void {
+        this.raiseEvent(version => new InventoryDecreased(command.inventoryId, command.inventoryItemId, command.amount, version));
     }
 
     protected apply(event: IDomainEvent): void {
