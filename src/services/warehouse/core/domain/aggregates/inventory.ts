@@ -36,6 +36,7 @@ export default class Inventory extends AggregateRoot {
     protected apply(event: IDomainEvent): void {
         if(event instanceof InventoryCreated) this.whenInventoryCreated(event);
         else if(event instanceof InventoryIncreased) this.whenInventoryIncreased(event);
+        else if(event instanceof InventoryDecreased) this.whenInventoryDecreased(event);
     }
 
     private whenInventoryCreated(event: InventoryCreated): void {
@@ -46,5 +47,9 @@ export default class Inventory extends AggregateRoot {
 
     private whenInventoryIncreased(event: InventoryIncreased): void {
         this._items.find(item => item.id === event.inventoryItemId)?.Increase(event.amount);
+    }
+
+    private whenInventoryDecreased(event: InventoryDecreased): void {
+        this._items.find(item => item.id === event.inventoryItemId)?.Decrease(event.amount);
     }
 }
