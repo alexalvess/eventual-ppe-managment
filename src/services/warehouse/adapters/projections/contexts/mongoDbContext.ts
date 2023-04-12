@@ -11,11 +11,13 @@ export class MongoDbContext implements IMongoDbContext{
         this._database = this.mongoClient.db();
     }
 
-    public get database(): Db{
-        return this._database;
+    public async getColletion<TSchema extends Document = Document>(collectionName: string): Promise<Collection<TSchema>> {
+        return this.mongoClient.connect().then(_ => {
+            return this._database.collection<TSchema>(collectionName);
+        });
     }
 
-    public getColletion<TSchema extends Document = Document>(collectionName: string): Collection<TSchema> {
-        return this._database.collection<TSchema>(collectionName);
+    async dispose(): Promise<void> {
+        this.mongoClient.close();
     }
 }

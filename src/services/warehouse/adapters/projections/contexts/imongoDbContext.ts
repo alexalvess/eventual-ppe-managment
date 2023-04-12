@@ -1,6 +1,6 @@
-import { Collection, Db } from "mongodb";
+import { Collection } from "mongodb";
+import { IDisposable } from "../../../../../utils/idisposable";
 
-export interface IMongoDbContext {
-    database: Db;
-    getColletion<TSchema extends Document = Document>(collectionName: string): Collection<TSchema>;
+export interface IMongoDbContext extends IDisposable {
+    getColletion<TSchema extends Document = Document>(collectionName: string): Promise<Collection<TSchema>>;
 }
