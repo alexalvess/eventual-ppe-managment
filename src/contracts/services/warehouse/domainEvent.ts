@@ -17,3 +17,35 @@ export class InventoryCreated extends Message implements IDomainEvent {
     readonly amount: number;
     readonly cost: number;
 }
+
+export class InventoryIncreased extends Message implements IDomainEvent {
+    constructor(inventoryId: string, inventoryItemId: string, amount: number, version: bigint) {
+        super();
+        
+        this.inventoryId = inventoryId;
+        this.inventoryItemId = inventoryItemId;
+        this.amount = amount;
+        this.version = version;
+    }
+    
+    readonly version: bigint;
+    readonly inventoryId: string;
+    readonly inventoryItemId: string;
+    readonly amount: number
+}
+
+export class InventoryDecreased extends Message implements IDomainEvent {
+    constructor(inventoryId: string, inventoryItemId: string, amount: number, version: bigint) {
+        super();
+        
+        this.inventoryId = inventoryId;
+        this.inventoryItemId = inventoryItemId;
+        this.amount = amount;
+        this.version = version;
+    }
+
+    readonly version: bigint;
+    readonly inventoryId: string;
+    readonly inventoryItemId: string;
+    readonly amount: number
+}
