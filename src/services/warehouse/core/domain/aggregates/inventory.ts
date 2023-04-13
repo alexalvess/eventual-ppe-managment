@@ -28,15 +28,15 @@ export default class Inventory extends AggregateRoot {
         else if(command instanceof DecreaseInventory) this.decreaseInventory(command);
     }
 
-    public createInventory(command: CreateInventory): void {
+    private createInventory(command: CreateInventory): void {
         this.raiseEvent(version => new InventoryCreated(command.product, command.amount, command.cost, version));
     }
 
-    public increaseInventory(command: IncreaseInventory): void {
+    private increaseInventory(command: IncreaseInventory): void {
         this.raiseEvent(version => new InventoryIncreased(command.inventoryId, command.inventoryItemId, command.amount, version));
     }
 
-    public decreaseInventory(command: DecreaseInventory): void {
+    private decreaseInventory(command: DecreaseInventory): void {
         this.raiseEvent(version => new InventoryDecreased(command.inventoryId, command.inventoryItemId, command.amount, version));
     }
 
