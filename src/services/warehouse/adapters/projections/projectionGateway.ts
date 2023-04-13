@@ -11,7 +11,16 @@ export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.Any
         this.collectionName = collectionName;
     }
 
-    public findAsync(filter: Mongoose.mongo.Filter<TSchema>, cancellationToken: CancellationToken): Promise<Mongoose.mongo.WithId<TSchema> | null> {
-        return this.context.getColletion<TSchema>(this.collectionName).findOne(filter);
+    public findAsync(filter: {}, cancellationToken: CancellationToken): Promise<TSchema | null> {
+        return this.context.getColletion<TSchema>(this.collectionName)
+            .findOne<TSchema>(filter)
+            .then(item => {
+                cancellationToken.throwIfCancellationRequested();
+                return item;
+            });
+    }
+
+    public getAsync(id: string, cancellationToken: CancellationToken): Promise<TSchema | null> {
+        return this.findAsync({ _id: id }, cancellationToken);
     }
 }
