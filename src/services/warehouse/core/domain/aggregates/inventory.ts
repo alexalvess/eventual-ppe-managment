@@ -22,6 +22,10 @@ export default class Inventory extends AggregateRoot {
         return this._items.map(item => item.amount).reduce((item, current) => item + current);
     }
 
+    public handle(command: ICommand): void {
+        
+    }
+
     public createInventory(command: CreateInventory): void {
         this.raiseEvent(version => new InventoryCreated(command.product, command.amount, command.cost, version));
     }

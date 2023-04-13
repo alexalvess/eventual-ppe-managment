@@ -1,7 +1,9 @@
+import ICommand from "../../../../../../contracts/abstractions/icommand";
 import { IDomainEvent } from "../../../../../../contracts/abstractions/ievent";
 import Entity from "../entities/entity";
+import { IAggregateRoot } from "./iaggregateRoot";
 
-export default abstract class AggregateRoot extends Entity {
+export default abstract class AggregateRoot extends Entity implements IAggregateRoot {
     constructor(id: string, isDeleted: boolean, version: bigint) {
         super(id, isDeleted);
 
@@ -15,6 +17,8 @@ export default abstract class AggregateRoot extends Entity {
     public uncommittedEvents: ReadonlyArray<IDomainEvent> = this.events;
 
     protected abstract apply(event: IDomainEvent): void;
+
+    public abstract handle(command: ICommand): void;
 
     public loadFromHistory(events: Array<IDomainEvent>): void {
         events.forEach(event => {
