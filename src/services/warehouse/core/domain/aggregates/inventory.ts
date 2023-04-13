@@ -10,6 +10,15 @@ import ICommand from "../../../../../contracts/abstractions/icommand";
 export default class Inventory extends AggregateRoot {
     private readonly _items: Array<Item> = new Array<Item>();
 
+    constructor() {
+        super()
+        let temp = 123;
+    }
+
+    // constructor() {
+    //     super();
+    // }   
+
     public get items(): Array<Item> {
         return this._items;
     }
@@ -23,7 +32,7 @@ export default class Inventory extends AggregateRoot {
     }
 
     public handle(command: ICommand): void {
-        
+        if(command instanceof CreateInventory) this.createInventory(command);
     }
 
     public createInventory(command: CreateInventory): void {
