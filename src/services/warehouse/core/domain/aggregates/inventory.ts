@@ -10,15 +10,6 @@ import ICommand from "../../../../../contracts/abstractions/icommand";
 export default class Inventory extends AggregateRoot {
     private readonly _items: Array<Item> = new Array<Item>();
 
-    constructor() {
-        super()
-        let temp = 123;
-    }
-
-    // constructor() {
-    //     super();
-    // }   
-
     public get items(): Array<Item> {
         return this._items;
     }

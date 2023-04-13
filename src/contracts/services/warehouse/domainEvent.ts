@@ -3,7 +3,7 @@ import Message from "../../abstractions/message";
 import ProductDto from "../../dataTransferObjects/productDto";
 
 export class InventoryCreated extends Message implements IDomainEvent {
-    constructor(product: ProductDto, amount: number, cost: number, version: bigint) {
+    constructor(product: ProductDto, amount: number, cost: number, version: number) {
         super();
         
         this.product = product;
@@ -12,14 +12,14 @@ export class InventoryCreated extends Message implements IDomainEvent {
         this.version = version;
     }
 
-    readonly version: bigint;
+    readonly version: number;
     readonly product: ProductDto;
     readonly amount: number;
     readonly cost: number;
 }
 
 export class InventoryIncreased extends Message implements IDomainEvent {
-    constructor(inventoryId: string, inventoryItemId: string, amount: number, version: bigint) {
+    constructor(inventoryId: string, inventoryItemId: string, amount: number, version: number) {
         super();
         
         this.inventoryId = inventoryId;
@@ -28,14 +28,14 @@ export class InventoryIncreased extends Message implements IDomainEvent {
         this.version = version;
     }
     
-    readonly version: bigint;
+    readonly version: number;
     readonly inventoryId: string;
     readonly inventoryItemId: string;
     readonly amount: number
 }
 
 export class InventoryDecreased extends Message implements IDomainEvent {
-    constructor(inventoryId: string, inventoryItemId: string, amount: number, version: bigint) {
+    constructor(inventoryId: string, inventoryItemId: string, amount: number, version: number) {
         super();
         
         this.inventoryId = inventoryId;
@@ -44,7 +44,7 @@ export class InventoryDecreased extends Message implements IDomainEvent {
         this.version = version;
     }
 
-    readonly version: bigint;
+    readonly version: number;
     readonly inventoryId: string;
     readonly inventoryItemId: string;
     readonly amount: number

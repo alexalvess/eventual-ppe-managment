@@ -4,15 +4,18 @@ import Entity from "../entities/entity";
 import { IAggregateRoot } from "./iaggregateRoot";
 
 export default abstract class AggregateRoot extends Entity implements IAggregateRoot {
-    constructor(id: string, isDeleted: boolean, version: bigint) {
-        super(id, isDeleted);
-
-        this.version = version;
-    }
+    private _version: number = 0;
     
     private readonly events: Array<IDomainEvent> = new Array();
     
-    public version: bigint;
+
+    public get version(): number {
+        return this._version;
+    }
+
+    private set version(version: number) {
+        this._version = version;
+    }
 
     public uncommittedEvents: ReadonlyArray<IDomainEvent> = this.events;
 
@@ -27,7 +30,7 @@ export default abstract class AggregateRoot extends Entity implements IAggregate
         })
     }
 
-    protected raiseEvent(callback: (version: bigint) => IDomainEvent): void {
+    protected raiseEvent(callback: (version: number) => IDomainEvent): void {
         this.version ++;
         let event = callback(this.version);
         this.apply(event);

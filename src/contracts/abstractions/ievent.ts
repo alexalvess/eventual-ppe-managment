@@ -5,7 +5,7 @@ interface IEvent extends IMessage {}
 export interface IDelayedEvent extends IEvent {}
 
 export interface IVersionedEvent extends IEvent {
-    version: bigint;
+    version: number;
 }
 
 export interface IDomainEvent extends IVersionedEvent {}
