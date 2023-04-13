@@ -2,16 +2,14 @@ import { IMongoDbContext } from "./abstractions/contexts/imongoDbContext";
 import * as Mongoose from "mongoose";
 
 export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.AnyObject> {
-    private readonly context: IMongoDbContext;
-    private readonly collectionName: string;
+    private readonly collection: Mongoose.Collection<TSchema>;
  
     constructor(context: IMongoDbContext, collectionName: string) {
-        this.context = context;
-        this.collectionName = collectionName;
+        this.collection = context.getColletion<TSchema>(collectionName);
     }
  
     public findAsync(filter: {}): Promise<TSchema | null> {
-        return this.context.getColletion<TSchema>(this.collectionName).findOne<TSchema>(filter);
+        return this.collection.findOne<TSchema>(filter);
     }
  
     public getAsync(id: string): Promise<TSchema | null> {
@@ -19,6 +17,10 @@ export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.Any
     }
 
     public listAllAsync(): Promise<Array<TSchema>> {
-        return this.context.getColletion<TSchema>(this.collectionName).find<TSchema>({}).toArray();
+        return this.collection.find<TSchema>({}).toArray();
+    }
+
+    public deleteAsync(filter: {}): Promise<boolean> {
+        return this.collection.deleteOne(filter).then(result => result.acknowledged);
     }
 }
