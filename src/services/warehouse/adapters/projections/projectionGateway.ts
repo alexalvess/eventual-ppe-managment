@@ -1,7 +1,8 @@
 import { IMongoDbContext } from "./abstractions/contexts/imongoDbContext";
 import * as Mongoose from "mongoose";
+import { IProjectionGateway } from "../../application/ports/iProjectionGateway";
 
-export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.AnyObject> {
+export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.AnyObject> implements IProjectionGateway<TSchema> {
     private readonly collection: Mongoose.Collection<TSchema>;
  
     constructor(context: IMongoDbContext, collectionName: string) {
@@ -26,7 +27,7 @@ export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.Any
     }
 
     public upsertAsync(filter: {}, replacement: TSchema): Promise<boolean> {
-        return this.collection.findOneAndReplace({}, replacement, { upsert: true })
+        return this.collection.findOneAndReplace(filter, replacement, { upsert: true })
             .then(result => result.ok === 0 ? false : true);
     }
 }
