@@ -24,6 +24,8 @@ export default class Inventory extends AggregateRoot {
 
     public handle(command: ICommand): void {
         if(command instanceof CreateInventory) this.createInventory(command);
+        else if(command instanceof IncreaseInventory) this.increaseInventory(command);
+        else if(command instanceof DecreaseInventory) this.decreaseInventory(command);
     }
 
     public createInventory(command: CreateInventory): void {
