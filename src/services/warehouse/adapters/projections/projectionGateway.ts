@@ -21,6 +21,12 @@ export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.Any
     }
 
     public deleteAsync(filter: {}): Promise<boolean> {
-        return this.collection.deleteOne(filter).then(result => result.acknowledged);
+        return this.collection.deleteOne(filter)
+            .then(result => result.acknowledged);
+    }
+
+    public upsertAsync(filter: {}, replacement: TSchema): Promise<boolean> {
+        return this.collection.findOneAndReplace({}, replacement, { upsert: true })
+            .then(result => result.ok === 0 ? false : true);
     }
 }
