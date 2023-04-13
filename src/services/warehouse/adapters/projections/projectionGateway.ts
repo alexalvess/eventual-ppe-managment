@@ -1,4 +1,3 @@
-import { CancellationToken } from "typescript";
 import { IMongoDbContext } from "./abstractions/contexts/imongoDbContext";
 import * as Mongoose from "mongoose";
 
