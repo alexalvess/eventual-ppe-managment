@@ -17,4 +17,8 @@ export class ProjectionGateway<TSchema extends Mongoose.AnyObject = Mongoose.Any
     public getAsync(id: string): Promise<TSchema | null> {
         return this.findAsync({ _id: id });
     }
+
+    public listAllAsync(): Promise<Array<TSchema>> {
+        return this.context.getColletion<TSchema>(this.collectionName).find<TSchema>({}).toArray();
+    }
 }
