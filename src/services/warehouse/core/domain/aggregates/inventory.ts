@@ -5,6 +5,7 @@ import AggregateRoot from "../abstractions/aggregates/aggregateRoot"
 import Item from "../entities/item";
 import uuid from "uuid";
 import Product from "../valueObjects/product";
+import ICommand from "../../../../../contracts/abstractions/icommand";
 
 export default class Inventory extends AggregateRoot {
     private readonly _items: Array<Item> = new Array<Item>();
