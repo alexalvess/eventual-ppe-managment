@@ -1,5 +1,8 @@
-# eventual-ppe-managment
+# Eventual PPE Managment
 
+
+## 💡 About
+The main objective of this project is to represent a distributed, reliable, and highly scalable architecture, using the relevant principles of [Reactive Domain Driven Design](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
 ### References
 
@@ -12,3 +15,5 @@
 * https://www.mongodb.com/docs/drivers/node/current/quick-start/connect-to-mongodb/
 * https://gist.github.com/dsherret/cf5d6bec3d0f791cef00
 * https://medium.com/swlh/using-typescript-with-mongodb-393caf7adfef
+* https://www.cloudamqp.com/blog/how-to-run-rabbitmq-with-nodejs.html
+* https://github.com/onebeyond/rascal
